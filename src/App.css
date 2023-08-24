@@ -6,3 +6,8 @@ body{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
+
+.standout{
+  border: 2px solid rgb(86, 82, 82);
+
+}

@@ -3,6 +3,8 @@ import femaleProfile from './images/femaleProfile.jpg';
 import maleProfile from "./images/maleProfile.jpg"
 
 const Employees =()=>{
+    const [selectedTeam,setSelectedTeam]=useState("TeamA");
+
     const [employees,setEmployees]=useState([
         {
             id:1,
@@ -65,14 +67,14 @@ const Employees =()=>{
             fullName:"Jessica Faye",
             designation:"Api Developer",
             gender:"female",
-            testName:"Teamc"
+            testName:"TeamC"
         },
         {
             id:9,
             fullName:"Lita Stone",
             designation:"C++ Developer",
             gender:"female",
-            testName:"Teamc"
+            testName:"TeamC"
         },
         {
             id:10,
@@ -94,22 +96,47 @@ const Employees =()=>{
             designation:"Graphic Developer",
             gender:"male",
             testName:"TeamD"
-        },
-        
-        
-        
-
-
+        }
     ])
+
+    function handleTeamSelectChange(event){
+        console.log(event.target.value)
+        setSelectedTeam(event.target.value)
+        
+    } 
+
+    function handleEmployeeCardClick(event){
+
+       const transformedEmployees =  employees.map((employee)=>(
+                                 (employee.id===event.currentTarget.id)? 
+                                 (employee.testName===selectedTeam)? {...employee,testName:''} : {...employee,testName:selectedTeam}
+                                 : employee
+                            ));
+          setEmployees(transformedEmployees);
+    }
+ 
+
     return (
         <main  className='container'>
+
+            <div className="row justify-content-center mt-3 mb-3">
+                <div className='col-6'>
+                <select className='form-select form-select-lg' onChange={handleTeamSelectChange}>
+                    <option value="TeamA">TeamA</option>
+                    <option value="TeamB">TeamB</option>
+                    <option value="TeamC">TeamC</option>
+                    <option value="TeamD">TeamD</option>
+                </select>
+                </div>
+            </div>
+
              <div className ="row justify-content-center mb-3 mt-3">
             <div className="col-8">
                 <div className='card-collection'>
              {
                 employees.map((employee)=>(
               
-                        <div id={employee.id} className="card m-2" style={{cursor:"pointer"}}>
+                        <div id={employee.id} className={(employee.testName===selectedTeam)? "card m-2 standout": "card m-2" } onClick={handleEmployeeCardClick} style={{cursor:"pointer"}}>
                         {
                             (employee.gender==="male")? <img src={maleProfile}  className="card-img-top"/>
                             : <img src={femaleProfile}  className="card-img-top"/>
@@ -118,6 +145,7 @@ const Employees =()=>{
                             <div className='card-body'>
                                 <h5 className='card-title'>Full Name : {employee.fullName}</h5>
                                 <p className='card-text'><b>Designation: </b> {employee.designation}</p>
+                                <p className='card-text'><b>Team: </b> {employee.testName}</p>
                             </div>
                         </div>
                  
