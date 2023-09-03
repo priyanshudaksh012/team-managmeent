@@ -3,7 +3,7 @@ import maleProfile from "./images/maleProfile.jpg"
 
 const Employees =({handleTeamSelectChange,handleEmployeeCardClick,employees,selectedTeam})=>{
    
-        console.log(handleTeamSelectChange)
+
     return (
         <main  className='container'>
 
