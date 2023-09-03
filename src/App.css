@@ -11,3 +11,7 @@ body{
   border: 2px solid rgb(86, 82, 82);
 
 }
+
+h1,h2,h4,h4,h5,p{
+  text-align: center;
+}
