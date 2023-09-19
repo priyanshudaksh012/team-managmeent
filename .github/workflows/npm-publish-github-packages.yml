@@ -1,37 +1,30 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-
-name: self-hosted
+name: Node.js CI/CD
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main  # Change this to your main branch name
 
 jobs:
   build:
     runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm ci
-      - run: npm test
 
-  publish-gpr:
-    needs: build
-    runs-on: BanspTech
-    permissions:
-      contents: read
-      packages: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 18.16.0
-          registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm install
-      - run: pm2 restart app.js
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          node-version: 14  # You can specify the Node.js version you need
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test  # Replace with your test command
+
+      - name: Build and Deploy
+        run: pm2 restart app.js
+
+# Add more steps or modify existing ones based on your specific CI/CD requirements.
