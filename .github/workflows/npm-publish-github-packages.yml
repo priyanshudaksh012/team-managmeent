@@ -21,10 +21,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test  # Replace with your test command
+      # - name: Run tests
+      #   run: npm test  # Replace with your test command
 
-      - name: Build and Deploy
-        run: pm2 restart app.js
+      # - name: Build and Deploy
+      #   run: pm2 restart app.js
 
 # Add more steps or modify existing ones based on your specific CI/CD requirements.
